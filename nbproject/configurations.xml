@@ -12,7 +12,12 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>cluster.cpp</itemPath>
+      <itemPath>cluster.hpp</itemPath>
+      <itemPath>definitions.h</itemPath>
       <itemPath>main.cpp</itemPath>
+      <itemPath>metric.hpp</itemPath>
+      <itemPath>plod.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
