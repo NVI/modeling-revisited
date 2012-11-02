@@ -24,30 +24,8 @@
 using namespace std;
 
 int main(){
-    int g_population = 1050;
-    double g_invtemperature = 0.1;
-    double g_lambda = 32;
-    unsigned long int g_seed1;
-    unsigned int g_seed2;
-    string file1;
-    string file2;
-    string file3;
-    string file4;
-    int iterations = 200;
-    cout << "Give seed1" << endl;
-    cin >> g_seed1;
-    cout << "Give seed2" << endl;
-    cin >> g_seed2;
-    cout << "Give filename for political parties output" << endl;
-    cin >> file1;
-    cout << "Give filename for network structure output" << endl;
-    cin >> file2;
-    cout << "Give filename for political parties input" << endl;
-    cin >> file3;
-    cout << "Give filename for network structure input" << endl;
-    cin >> file4;
     graph n_adjlist;
-    for (int index = 0; index < g_population; ++index){
+    for (int i = 0; i < g_population; ++i){
         set<int> emptyset;
         person someone = {emptyset, 0};
         n_adjlist.push_back(someone);
@@ -77,23 +55,23 @@ int main(){
     political.open (file1.c_str());
     supergraph parliament;
     parliament.push_back(n_adjlist);
-    for (int h3 = 0; h3 <= iterations; ++h3) {
-        graph t_adjlist = cluster(g_population, g_invtemperature, n_adjlist, (h3 + 1), g_lambda);
+    for (int i = 0; i <= iterations; ++i) {
+        graph t_adjlist = cluster(g_population, g_invtemperature, n_adjlist, (i + 1), g_lambda);
         parliament.push_back(t_adjlist);
         n_adjlist = t_adjlist;
-        cout << h3 << endl;
+        cout << i << endl;
     }
-    for (int h4 = 0; h4 < g_population; ++h4) {
-        for (int h5 = 0; h5 <= iterations; ++h5) {
-            political << (((parliament[h5])[h4]).political_party);
+    for (int i = 0; i < g_population; ++i) {
+        for (int j = 0; j <= iterations; ++j) {
+            political << (((parliament[j])[i]).political_party);
             political << ",";
         }
         political << "\n";
     }
     ofstream network;
     network.open (file2.c_str());
-    for (int p = 0; p < g_population; ++p) {
-        for (set<int>::iterator q = n_adjlist[p].friends.begin(); q != n_adjlist[p].friends.end(); ++q) {
+    for (int i = 0; i < g_population; ++i) {
+        for (set<int>::iterator q = n_adjlist[i].friends.begin(); q != n_adjlist[i].friends.end(); ++q) {
             network << " " << *q;
             network << ",";
         }

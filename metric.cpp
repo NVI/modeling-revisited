@@ -1,110 +1,109 @@
-
 #include <vector>
 
 using namespace std;
 
-int metric (int pp, double lambda, double randomx){
-    vector<double> pv;
-    if (pp == 1){
-        pv.push_back(0.000);
-        pv.push_back(0.254);
-        pv.push_back(0.309);
-        pv.push_back(0.267);
-        pv.push_back(0.409);
-        pv.push_back(0.425);
-        pv.push_back(0.366);
-        pv.push_back(0.570);
+int metric (int party, double lambda, double rho){
+    vector<double> distances;
+    if (party == 1){
+        distances.push_back(0.000);
+        distances.push_back(0.254);
+        distances.push_back(0.309);
+        distances.push_back(0.267);
+        distances.push_back(0.409);
+        distances.push_back(0.425);
+        distances.push_back(0.366);
+        distances.push_back(0.570);
     }
-    if (pp == 2){
-        pv.push_back(0.254);
-        pv.push_back(0.000);
-        pv.push_back(0.164);
-        pv.push_back(0.435);
-        pv.push_back(0.533);
-        pv.push_back(0.504);
-        pv.push_back(0.368);
-        pv.push_back(0.538);
+    if (party == 2){
+        distances.push_back(0.254);
+        distances.push_back(0.000);
+        distances.push_back(0.164);
+        distances.push_back(0.435);
+        distances.push_back(0.533);
+        distances.push_back(0.504);
+        distances.push_back(0.368);
+        distances.push_back(0.538);
     }
-    if (pp == 3){
-        pv.push_back(0.309);
-        pv.push_back(0.164);
-        pv.push_back(0.000);
-        pv.push_back(0.376);
-        pv.push_back(0.432);
-        pv.push_back(0.382);
-        pv.push_back(0.227);
-        pv.push_back(0.377);
+    if (party == 3){
+        distances.push_back(0.309);
+        distances.push_back(0.164);
+        distances.push_back(0.000);
+        distances.push_back(0.376);
+        distances.push_back(0.432);
+        distances.push_back(0.382);
+        distances.push_back(0.227);
+        distances.push_back(0.377);
     }
-    if (pp == 4){
-        pv.push_back(0.267);
-        pv.push_back(0.435);
-        pv.push_back(0.376);
-        pv.push_back(0.000);
-        pv.push_back(0.151);
-        pv.push_back(0.200);
-        pv.push_back(0.251);
-        pv.push_back(0.418);
+    if (party == 4){
+        distances.push_back(0.267);
+        distances.push_back(0.435);
+        distances.push_back(0.376);
+        distances.push_back(0.000);
+        distances.push_back(0.151);
+        distances.push_back(0.200);
+        distances.push_back(0.251);
+        distances.push_back(0.418);
     }
-    if (pp == 5){
-        pv.push_back(0.409);
-        pv.push_back(0.533);
-        pv.push_back(0.432);
-        pv.push_back(0.151);
-        pv.push_back(0.000);
-        pv.push_back(0.090);
-        pv.push_back(0.233);
-        pv.push_back(0.329);
+    if (party == 5){
+        distances.push_back(0.409);
+        distances.push_back(0.533);
+        distances.push_back(0.432);
+        distances.push_back(0.151);
+        distances.push_back(0.000);
+        distances.push_back(0.090);
+        distances.push_back(0.233);
+        distances.push_back(0.329);
     }
-    if (pp == 6){
-        pv.push_back(0.425);
-        pv.push_back(0.504);
-        pv.push_back(0.382);
-        pv.push_back(0.200);
-        pv.push_back(0.090);
-        pv.push_back(0.000);
-        pv.push_back(0.163);
-        pv.push_back(0.240);
+    if (party == 6){
+        distances.push_back(0.425);
+        distances.push_back(0.504);
+        distances.push_back(0.382);
+        distances.push_back(0.200);
+        distances.push_back(0.090);
+        distances.push_back(0.000);
+        distances.push_back(0.163);
+        distances.push_back(0.240);
     }
-    if (pp == 7){
-        pv.push_back(0.366);
-        pv.push_back(0.368);
-        pv.push_back(0.227);
-        pv.push_back(0.251);
-        pv.push_back(0.233);
-        pv.push_back(0.163);
-        pv.push_back(0.000);
-        pv.push_back(0.204);
+    if (party == 7){
+        distances.push_back(0.366);
+        distances.push_back(0.368);
+        distances.push_back(0.227);
+        distances.push_back(0.251);
+        distances.push_back(0.233);
+        distances.push_back(0.163);
+        distances.push_back(0.000);
+        distances.push_back(0.204);
     }
-    if (pp == 8){
-        pv.push_back(0.570);
-        pv.push_back(0.538);
-        pv.push_back(0.377);
-        pv.push_back(0.418);
-        pv.push_back(0.329);
-        pv.push_back(0.240);
-        pv.push_back(0.204);
-        pv.push_back(0.000);
+    if (party == 8){
+        distances.push_back(0.570);
+        distances.push_back(0.538);
+        distances.push_back(0.377);
+        distances.push_back(0.418);
+        distances.push_back(0.329);
+        distances.push_back(0.240);
+        distances.push_back(0.204);
+        distances.push_back(0.000);
     }
-    for (int xa = 0; xa < 8; ++xa){
-        pv[xa] = exp(-lambda*pv[xa]);
+    for (int i = 0; i < 8; ++i){
+        distances[i] = exp(-lambda*distances[i]);
     }
-    double psum = 0.0;
-    for (int xb = 0; xb < 8; ++xb){
-        psum += pv[xb];
+    double distances_sum = 0.0;
+    for (int i = 0; i < 8; ++i){
+        distances_sum += distances[i];
     }
-    for (int xc = 0; xc < 8; ++xc){
-        pv[xc] = pv[xc]/psum;
+    for (int i = 0; i < 8; ++i){
+        distances[i] = distances[i]/distances_sum;
     }
-    double ht = 0;
-    double xd = 0;
-    if (randomx == 0){
+    double threshold = 0.0;
+    int j = 0;
+    if (rho == 0){
         return 1;
     }
     else {
-        while (randomx > ht){
-            ht += pv[xd];
-            ++xd;
+        while (rho > threshold){
+            threshold += distances[j];
+            ++j;
         }
-        return xd;
+        return j;
     }
 }

@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>definitions.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -13,11 +14,10 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>cluster.cpp</itemPath>
-      <itemPath>cluster.hpp</itemPath>
-      <itemPath>definitions.h</itemPath>
+      <itemPath>constants.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
-      <itemPath>metric.hpp</itemPath>
-      <itemPath>plod.hpp</itemPath>
+      <itemPath>metric.cpp</itemPath>
+      <itemPath>plod.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"

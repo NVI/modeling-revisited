@@ -36,6 +36,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/constants.o \
+	${OBJECTDIR}/metric.o \
+	${OBJECTDIR}/plod.o \
 	${OBJECTDIR}/cluster.o
 
 
@@ -67,6 +70,21 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/constants.o: constants.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/constants.o constants.cpp
+
+${OBJECTDIR}/metric.o: metric.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/metric.o metric.cpp
+
+${OBJECTDIR}/plod.o: plod.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/plod.o plod.cpp
 
 ${OBJECTDIR}/cluster.o: cluster.cpp 
 	${MKDIR} -p ${OBJECTDIR}

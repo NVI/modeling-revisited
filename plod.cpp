@@ -22,7 +22,7 @@ graph plod (int population, int connections, graph adjlist, double alpha, double
     boost::mt19937 rgen1;
     rgen1.seed(static_cast<unsigned int>(seed2));
     boost::uniform_int<> rdist1(0, (population - 1));
-    for (int j = 0; j < minima; ++j) {
+    for (int i = 0; i < minima; ++i) {
         bool cond = true;
         while (cond == true) {
             int k = rdist1(rgen1);
