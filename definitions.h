@@ -6,12 +6,12 @@
 #include <vector>
 #include <set>
 
-int g_population;
-double g_invtemperature;
-double g_lambda;
+int g_population = 1050;
+double g_invtemperature = 0.1;
+double g_lambda = 32;
 unsigned long int g_seed1;
 unsigned int g_seed2;
-int iterations;
+int iterations = 200;
 
 std::string filename_network_structure_input; /* file4 */
 std::string filename_network_structure_output; /* file2 */

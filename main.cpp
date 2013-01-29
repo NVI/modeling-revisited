@@ -1,10 +1,3 @@
-/*
- * File:   main.cpp
- * Author: NVI
- *
- * Created on October 25, 2011, 2:37 PM
- */
-
 #include <cstdlib>
 #include <iostream>
 #include <fstream>

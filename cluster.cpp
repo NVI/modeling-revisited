@@ -1,8 +1,11 @@
+#include <set>
+#include <iostream>
+#include "definitions.h"
 
 graph cluster(int people, double invtemperature, graph adjlist2, unsigned int seed3, double lambda_pre){
-    set<int> fset;
-    set<int> cset;
-    set<int> pset;
+    std::set<int> fset;
+    std::set<int> cset;
+    std::set<int> pset;
     matrix clusters;
     boost::mt19937 rgen2;
     rgen2.seed(static_cast<unsigned int>(seed3));
@@ -22,7 +25,7 @@ graph cluster(int people, double invtemperature, graph adjlist2, unsigned int se
         cset.insert(r1);
         pset.insert(r1);
         fset.erase(r1);
-        set<int> xset = fset;
+        std::set<int> xset = fset;
         while (pset.empty() == false) {
             int w = 0;
             int intk = -2;
@@ -69,6 +72,6 @@ graph cluster(int people, double invtemperature, graph adjlist2, unsigned int se
             }
         }
     }
-    cout << sigma << endl;
+    std::cout << sigma << std::endl;
     return adjlist2;
 }
