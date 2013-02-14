@@ -1,4 +1,4 @@
-#include "definitions.h"
+#include "def.h"
 
 graph plod (int population, int connections, graph adjlist, double alpha, double xm, unsigned long int seed1, unsigned int seed2){
     const gsl_rng_type * T;

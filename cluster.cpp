@@ -1,6 +1,6 @@
 #include <set>
 #include <iostream>
-#include "definitions.h"
+#include "def.h"
 
 graph cluster(int people, double invtemperature, graph adjlist2, unsigned int seed3, double lambda_pre){
     std::set<int> fset;
