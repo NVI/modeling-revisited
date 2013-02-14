@@ -18,6 +18,10 @@ using namespace std;
 
 int main(){
     
+    struct Setup setup;
+    setup.seed1 = 0;
+    setup.seed2 = 0;
+    
     struct Party Vihreat;
     Vihreat.index = 0;
     Vihreat.distances = {0.000, 0.254, 0.309, 0.267, 0.409, 0.425, 0.366, 0.570};
@@ -62,9 +66,9 @@ int main(){
     Finland.parties = {Vihreat, Vasemmisto, SDP, RKP, Kokoomus, Keskusta, KristillisD, PerusS};
     
     graph n_adjlist;
-    for (int i = 0; i < g_population; ++i){
+    for (int i = 0; i < setup.population; ++i){
         set<int> emptyset;
-        person someone = {emptyset, 0};
+        Person someone = {emptyset, 0};
         n_adjlist.push_back(someone);
     }
     int p1 = 0;
@@ -74,7 +78,7 @@ int main(){
         stringstream lineStream(line1);
         string cell1;
         while (getline(lineStream,cell1,',')){
-            n_adjlist[p1].political_party = atoi(cell1.c_str());
+            n_adjlist[p1].party_index = atoi(cell1.c_str());
             ++p1;
         }
     }
@@ -93,21 +97,21 @@ int main(){
     evolutionary_path parliament;
     parliament.push_back(n_adjlist);
     for (int i = 0; i <= iterations; ++i) {
-        graph t_adjlist = cluster(g_population, g_invtemperature, n_adjlist, (i + 1), g_lambda);
+        graph t_adjlist = cluster(Finland, setup, n_adjlist, (i + 1));
         parliament.push_back(t_adjlist);
         n_adjlist = t_adjlist;
         cout << i << endl;
     }
-    for (int i = 0; i < g_population; ++i) {
+    for (int i = 0; i < setup.population; ++i) {
         for (int j = 0; j <= iterations; ++j) {
-            political << (((parliament[j])[i]).political_party);
+            political << (((parliament[j])[i]).party_index);
             political << ",";
         }
         political << "\n";
     }
     ofstream network;
     network.open (file2.c_str());
-    for (int i = 0; i < g_population; ++i) {
+    for (int i = 0; i < setup.population; ++i) {
         for (set<int>::iterator q = n_adjlist[i].friends.begin(); q != n_adjlist[i].friends.end(); ++q) {
             network << " " << *q;
             network << ",";

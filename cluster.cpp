@@ -2,15 +2,15 @@
 #include <iostream>
 #include "def.h"
 
-graph cluster(int people, double invtemperature, graph adjlist2, unsigned int seed3, double lambda_pre){
+graph cluster(System system, Setup setup, graph list, unsigned int prng_seed){
     std::set<int> fset;
     std::set<int> cset;
     std::set<int> pset;
     matrix clusters;
-    boost::mt19937 rgen2;
-    rgen2.seed(static_cast<unsigned int>(seed3));
-    boost::uniform_01<> rdist2;
-    for (int f = 0; f < people; ++f) {
+    boost::mt19937 prng;
+    prng.seed(static_cast<unsigned int>(prng_seed));
+    boost::uniform_01<> prng_distrib;
+    for (int f = 0; f < setup.population; ++f) {
         fset.insert(f);
     }
     while (fset.empty() == false) {
@@ -35,12 +35,12 @@ graph cluster(int people, double invtemperature, graph adjlist2, unsigned int se
                 }
                 ++w;
             }
-            for (int intl = 0; intl < people; ++intl) {
+            for (int intl = 0; intl < setup.population; ++intl) {
                 if (xset.count(intl) == 1){
                     xset.erase(intl);
-                    if (cset.count(intl) == 0 && ((adjlist2[intk]).friends).count(intl) == 1 && (adjlist2[intk].political_party) == (adjlist2[intl]).political_party) {
-                        double r2 = rdist2(rgen2);
-                        double p = 1.0 - exp(-invtemperature);
+                    if (cset.count(intl) == 0 && ((list[intk]).friends).count(intl) == 1 && (list[intk].party_index) == (list[intl]).party_index) {
+                        double r2 = prng_distrib(prng);
+                        double p = 1.0 - exp(-setup.inverse_temperature);
                         if (r2 < p) {
                             cset.insert(intl);
                             pset.insert(intl);
@@ -57,21 +57,21 @@ graph cluster(int people, double invtemperature, graph adjlist2, unsigned int se
     }
     int sigma = 0;
     for (int h = 0; h < clusters.size(); ++h) {
-        int gl = 0;
-        while (clusters[h].count(gl) == 0) {
-            ++gl;
+        int a = 0;
+        while (clusters[h].count(a) == 0) {
+            ++a;
         }
-        double rx = rdist2(rgen2);
-        int r3 = metric(adjlist2[gl].political_party, lambda_pre, rx);
-        for (int i = 0; i < people; ++i) {
+        double rx = prng_distrib(prng);
+        int r3 = metric(system[list[a].party_index], rx);
+        for (int i = 0; i < setup.population; ++i) {
             if (clusters[h].count(i) == 1) {
-                if (adjlist2[i].political_party != r3){
+                if (list[i].party_index != r3){
                     sigma += 1;
                 }
-                (adjlist2[i]).political_party = r3;
+                (list[i]).party_index = r3;
             }
         }
     }
     std::cout << sigma << std::endl;
-    return adjlist2;
+    return list;
 }

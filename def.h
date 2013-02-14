@@ -5,12 +5,14 @@
 #include <vector>
 #include <set>
 
-int g_population = 1050;
-double g_invtemperature = 0.1;
-const double const_lambda = 32;
-unsigned long int g_seed1;
-unsigned int g_seed2;
-int iterations = 200;
+struct Setup {
+    const int iterations = 200;
+    const int population = 1050;
+    const double inverse_temperature = 0.1;
+    const double lambda = 32;
+    unsigned long int seed1;
+    unsigned int seed2;
+};
 
 std::string filename_network_structure_input; /* file4 */
 std::string filename_network_structure_output; /* file2 */
@@ -36,8 +38,8 @@ typedef std::vector<Person> graph;
 typedef std::vector<graph> evolutionary_path;
 
 Party normalize (Party party, double lambda);
-int metric (int pp, double lambda, double randomx);
-graph cluster(int people, double invtemperature, graph adjlist2, unsigned int seed3, double lambda_pre);
-graph plod (int population, int connections, graph adjlist, double alpha, double xm, unsigned long int seed1, unsigned int seed2);
+int metric (Party party, double random_variable);
+graph cluster(System system, Setup setup, graph list, unsigned int prng_seed);
+graph plod (int population, int connections, graph adjlist, double alpha, double xm, Setup setup);
 
 #endif	/* DEF_H */
