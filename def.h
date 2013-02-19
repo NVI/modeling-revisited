@@ -14,10 +14,10 @@ struct Setup {
     unsigned int seed2;
 };
 
-std::string filename_network_structure_input; /* file4 */
-std::string filename_network_structure_output; /* file2 */
-std::string filename_political_parties_input; /* file3 */
-std::string filename_political_parties_output; /* file1 */
+std::string filename_network_structure_input;
+std::string filename_network_structure_output;
+std::string filename_political_parties_input;
+std::string filename_political_parties_output;
 
 struct Party {
     int index;
@@ -33,11 +33,12 @@ struct Person {
     int party_index; // used to be "political_party"
 } ;
 
-typedef std::vector<std::set<int> > matrix;
+typedef std::set<int> set;
+typedef std::vector<set> set_collection;
 typedef std::vector<Person> graph;
 typedef std::vector<graph> evolutionary_path;
 
-Party normalize (Party party, double lambda);
+Party normalize (Party party, Setup setup);
 int metric (Party party, double random_variable);
 graph cluster(System system, Setup setup, graph list, unsigned int prng_seed);
 graph plod (int population, int connections, graph adjlist, double alpha, double xm, Setup setup);

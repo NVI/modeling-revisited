@@ -1,3 +1,8 @@
+#include <gsl/gsl_rng.h>
+#include <gsl/gsl_randist.h>
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_int.hpp>
+#include <boost/random/uniform_01.hpp>
 #include "def.h"
 
 graph plod (int population, int connections, graph adjlist, double alpha, double xm, Setup setup){
@@ -7,9 +12,9 @@ graph plod (int population, int connections, graph adjlist, double alpha, double
     gsl_rng_set (generator, setup.seed1);
     vector<int> friendships;
     for (int i = 0; i < population; ++i) {
-        double rand = gsl_ran_pareto (generator, alpha, xm);
-        int randint = (int)rand;
-        friendships.push_back(randint);
+        double random_float = gsl_ran_pareto (generator, alpha, xm);
+        int random_integer = (int)random_float;
+        friendships.push_back(random_integer);
     }
     int acc_connections = accumulate(friendships.begin(),friendships.end(),0);
     cout << acc_connections << endl;

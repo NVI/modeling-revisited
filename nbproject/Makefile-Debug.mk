@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/metric.o \
+	${OBJECTDIR}/normalize.o \
 	${OBJECTDIR}/plod.o \
 	${OBJECTDIR}/cluster.o
 
@@ -74,6 +75,11 @@ ${OBJECTDIR}/metric.o: metric.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/metric.o metric.cpp
+
+${OBJECTDIR}/normalize.o: normalize.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/normalize.o normalize.cpp
 
 ${OBJECTDIR}/plod.o: plod.cpp 
 	${MKDIR} -p ${OBJECTDIR}

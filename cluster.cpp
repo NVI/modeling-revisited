@@ -1,17 +1,22 @@
 #include <set>
 #include <iostream>
+#include <gsl/gsl_rng.h>
+#include <gsl/gsl_randist.h>
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_int.hpp>
+#include <boost/random/uniform_01.hpp>
 #include "def.h"
 
 graph cluster(System system, Setup setup, graph list, unsigned int prng_seed){
-    std::set<int> fset;
-    std::set<int> cset;
-    std::set<int> pset;
-    matrix clusters;
+    set fset;
+    set cset;
+    set pset;
+    set_collection clusters;
     boost::mt19937 prng;
     prng.seed(static_cast<unsigned int>(prng_seed));
     boost::uniform_01<> prng_distrib;
-    for (int f = 0; f < setup.population; ++f) {
-        fset.insert(f);
+    for (int i = 0; i < setup.population; ++i) {
+        fset.insert(i);
     }
     while (fset.empty() == false) {
         int r1 = -1;
@@ -55,23 +60,23 @@ graph cluster(System system, Setup setup, graph list, unsigned int prng_seed){
         pset.clear();
         cset.clear();
     }
-    int sigma = 0;
-    for (int h = 0; h < clusters.size(); ++h) {
-        int a = 0;
-        while (clusters[h].count(a) == 0) {
-            ++a;
+    int sum = 0;
+    for (int i = 0; i < clusters.size(); ++i) {
+        int first_index = 0;
+        while (clusters[i].count(first_index) == 0) {
+            ++first_index;
         }
         double rx = prng_distrib(prng);
-        int r3 = metric(system[list[a].party_index], rx);
-        for (int i = 0; i < setup.population; ++i) {
-            if (clusters[h].count(i) == 1) {
-                if (list[i].party_index != r3){
-                    sigma += 1;
+        int r3 = metric(system[list[first_index].party_index], rx);
+        for (int j = 0; j < setup.population; ++j) {
+            if (clusters[i].count(j) == 1) {
+                if (list[j].party_index != r3){
+                    sum += 1;
                 }
-                (list[i]).party_index = r3;
+                (list[j]).party_index = r3;
             }
         }
     }
-    std::cout << sigma << std::endl;
+    std::cout << sum << std::endl;
     return list;
 }
