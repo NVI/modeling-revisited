@@ -8,11 +8,11 @@
 struct Setup {
     const int iterations = 200;
     const int population = 1050;
-    const int connections_limit = 4200; // value???
+    const int connections_limit = 6300;
     const double inverse_temperature = 0.1;
     const double lambda = 32;
-    const double alpha = 1; // value???
-    const double x_m = 1; // value???
+    const double alpha = 1;
+    const double x_m = 3;
     unsigned int seed;
 };
 
