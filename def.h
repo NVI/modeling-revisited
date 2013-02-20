@@ -10,8 +10,9 @@ struct Setup {
     const int population = 1050;
     const double inverse_temperature = 0.1;
     const double lambda = 32;
-    unsigned long int seed1;
-    unsigned int seed2;
+    const double alpha = 1; // value???
+    const double x_m = 1; // value???
+    unsigned int seed;
 };
 
 std::string filename_network_structure_input;
@@ -41,6 +42,6 @@ typedef std::vector<graph> evolutionary_path;
 Party normalize (Party party, Setup setup);
 int metric (Party party, double random_variable);
 graph cluster(System system, Setup setup, graph list, unsigned int prng_seed);
-graph plod (int population, int connections, graph adjlist, double alpha, double xm, Setup setup);
+graph plod (int population, int connections, graph list, Setup setup);
 
 #endif	/* DEF_H */

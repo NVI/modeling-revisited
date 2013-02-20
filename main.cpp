@@ -12,8 +12,7 @@
 int main(){
     // initialization
     struct Setup setup;
-    setup.seed1 = 0;
-    setup.seed2 = 0;
+    setup.seed = 0;
     
     struct Party Vihreat;
     Vihreat.index = 0;

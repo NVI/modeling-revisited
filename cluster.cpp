@@ -1,7 +1,5 @@
 #include <set>
 #include <iostream>
-#include <gsl/gsl_rng.h>
-#include <gsl/gsl_randist.h>
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int.hpp>
 #include <boost/random/uniform_01.hpp>

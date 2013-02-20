@@ -1,18 +1,17 @@
-#include <gsl/gsl_rng.h>
-#include <gsl/gsl_randist.h>
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int.hpp>
 #include <boost/random/uniform_01.hpp>
+#include <boost/math/distributions.hpp>
 #include "def.h"
 
-graph plod (int population, int connections, graph adjlist, double alpha, double xm, Setup setup){
-    const gsl_rng_type * T;
-    gsl_rng * generator;
-    generator = gsl_rng_alloc (gsl_rng_mt19937);
-    gsl_rng_set (generator, setup.seed1);
+graph plod (int population, int connections, graph list, Setup setup){
+    boost::mt19937 prng;
+    prng.seed(static_cast<unsigned int>(setup.seed));
+    boost::uniform_01<> prng_distrib;
+    boost::math::pareto_distribution<double> pareto(setup.x_m, setup.alpha);
     std::vector<int> friendships;
     for (int i = 0; i < population; ++i) {
-        double random_float = gsl_ran_pareto (generator, alpha, xm);
+        double random_float = boost::math::quantile(pareto, prng_distrib(prng));
         int random_integer = (int)random_float;
         friendships.push_back(random_integer);
     }
@@ -25,14 +24,12 @@ graph plod (int population, int connections, graph adjlist, double alpha, double
     if (acc_connections/2 < connections) {
         minimum = acc_connections;
     }
-    boost::mt19937 rgen1;
-    rgen1.seed(static_cast<unsigned int>(setup.seed2));
-    boost::uniform_int<> rdist1(0, (population - 1));
+    boost::uniform_int<> prng_distrib_int(0, (population - 1));
     for (int i = 0; i < minimum; ++i) {
         bool condition = true;
         while (condition == true) {
-            int k = rdist1(rgen1);
-            int l = rdist1(rgen1);
+            int k = prng_distrib_int(prng);
+            int l = prng_distrib_int(prng);
             int sum = 0;
             for (int m = 0; m < population; ++m) {
                 sum += friendships[m];
@@ -40,16 +37,15 @@ graph plod (int population, int connections, graph adjlist, double alpha, double
             if (sum < 2) {
                 condition = false;
             }
-            int it = (adjlist[k]).friends.count(l);
+            int it = (list[k]).friends.count(l);
             if (k != l && friendships[k] > 0 && friendships[l] > 0 && it == 0) {
                 --friendships[k];
                 --friendships[l];
-                (adjlist[k]).friends.insert(l);
-                (adjlist[l]).friends.insert(k);
+                (list[k]).friends.insert(l);
+                (list[l]).friends.insert(k);
                 condition = false;
             }
         }
     }
-    gsl_rng_free(generator);
-    return adjlist;
+    return list;
 }
