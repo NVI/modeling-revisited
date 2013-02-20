@@ -5,7 +5,7 @@
 #include <boost/random/uniform_01.hpp>
 #include "def.h"
 
-graph cluster(System system, Setup setup, graph list, unsigned int prng_seed){
+graph cluster(Setup setup, graph list, System system, unsigned int prng_seed){
     set fset;
     set cset;
     set pset;

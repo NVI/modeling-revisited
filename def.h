@@ -8,6 +8,7 @@
 struct Setup {
     const int iterations = 200;
     const int population = 1050;
+    const int connections_limit = 4200; // value???
     const double inverse_temperature = 0.1;
     const double lambda = 32;
     const double alpha = 1; // value???
@@ -30,8 +31,8 @@ struct System {
 };
 
 struct Person {
-    std::set<int> friends;
-    int party_index; // used to be "political_party"
+    std::set<int> friends; // set of friendly nodes
+    int party_index; // political party
 } ;
 
 typedef std::set<int> set;
@@ -41,7 +42,7 @@ typedef std::vector<graph> evolutionary_path;
 
 Party normalize (Party party, Setup setup);
 int metric (Party party, double random_variable);
-graph cluster(System system, Setup setup, graph list, unsigned int prng_seed);
-graph plod (int population, int connections, graph list, Setup setup);
+graph cluster(Setup setup, graph list, System system, unsigned int prng_seed);
+graph plod (Setup setup, graph list);
 
 #endif	/* DEF_H */

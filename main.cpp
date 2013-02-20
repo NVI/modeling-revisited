@@ -89,12 +89,12 @@ int main(){
     }
     
     // algorithm
-    evolutionary_path game_change;
-    game_change.push_back(new_list);
+    evolutionary_path iterations;
+    iterations.push_back(new_list);
     for (int algo_iter = 0; algo_iter <= setup.iterations; ++algo_iter) {
-        graph t_adjlist = cluster(Finland, setup, new_list, (algo_iter + 1));
-        game_change.push_back(t_adjlist);
-        new_list = t_adjlist;
+        graph list_iter = cluster(setup, new_list, Finland, (algo_iter + 1));
+        iterations.push_back(list_iter);
+        new_list = list_iter;
     }
     
     // output
@@ -102,7 +102,7 @@ int main(){
     op_data.open (filename_political_parties_output.c_str());
     for (int op_iter_a = 0; op_iter_a < setup.population; ++op_iter_a) {
         for (int op_iter_b = 0; op_iter_b <= setup.iterations; ++op_iter_b) {
-            op_data << (((game_change[op_iter_b])[op_iter_a]).party_index);
+            op_data << (((iterations[op_iter_b])[op_iter_a]).party_index);
             op_data << ",";
         }
         op_data << "\n";
