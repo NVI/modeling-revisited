@@ -15,68 +15,69 @@ graph cluster(System system, Setup setup, graph list, unsigned int prng_seed){
     boost::mt19937 prng;
     prng.seed(static_cast<unsigned int>(prng_seed));
     boost::uniform_01<> prng_distrib;
+    double random;
     for (int i = 0; i < setup.population; ++i) {
         fset.insert(i);
     }
     while (fset.empty() == false) {
-        int r1 = -1;
-        int g = 0;
-        while (r1 == -1) {
-            if (fset.count(g) == 1) {
-                r1 = g;
+        int choice = -1;
+        int choice_iter = 0;
+        while (choice == -1) {
+            if (fset.count(choice_iter) == 1) {
+                choice = choice_iter;
             }
-            ++g;
+            ++choice_iter;
         }
-        cset.insert(r1);
-        pset.insert(r1);
-        fset.erase(r1);
+        cset.insert(choice);
+        pset.insert(choice);
+        fset.erase(choice);
         std::set<int> xset = fset;
         while (pset.empty() == false) {
             int w = 0;
-            int intk = -2;
-            while (w != (intk + 1)) {
+            int k = -2;
+            while (w != (k + 1)) {
                 if (pset.count(w) == 1) {
-                    intk = w;
+                    k = w;
                 }
                 ++w;
             }
-            for (int intl = 0; intl < setup.population; ++intl) {
-                if (xset.count(intl) == 1){
-                    xset.erase(intl);
-                    if (cset.count(intl) == 0 && ((list[intk]).friends).count(intl) == 1 && (list[intk].party_index) == (list[intl]).party_index) {
-                        double r2 = prng_distrib(prng);
+            for (int l = 0; l < setup.population; ++l) {
+                if (xset.count(l) == 1){
+                    xset.erase(l);
+                    if (cset.count(l) == 0 && ((list[k]).friends).count(l) == 1 && (list[k].party_index) == (list[l]).party_index) {
+                        random = prng_distrib(prng);
                         double p = 1.0 - exp(-setup.inverse_temperature);
-                        if (r2 < p) {
-                            cset.insert(intl);
-                            pset.insert(intl);
-                            fset.erase(intl);
+                        if (random < p) {
+                            cset.insert(l);
+                            pset.insert(l);
+                            fset.erase(l);
                         }
                     }
                 }
             }
-            pset.erase(intk);
+            pset.erase(k);
         }
         clusters.push_back(cset);
         pset.clear();
         cset.clear();
     }
-    int sum = 0;
+    int number_of_changes = 0;
     for (int i = 0; i < clusters.size(); ++i) {
         int first_index = 0;
         while (clusters[i].count(first_index) == 0) {
             ++first_index;
         }
-        double rx = prng_distrib(prng);
-        int r3 = metric(system[list[first_index].party_index], rx);
+        random = prng_distrib(prng);
+        int new_party = metric(system[list[first_index].party_index], random);
         for (int j = 0; j < setup.population; ++j) {
             if (clusters[i].count(j) == 1) {
-                if (list[j].party_index != r3){
-                    sum += 1;
+                if (list[j].party_index != new_party){
+                    ++number_of_changes;
                 }
-                (list[j]).party_index = r3;
+                (list[j]).party_index = new_party;
             }
         }
     }
-    std::cout << sum << std::endl;
+    std::cout << number_of_changes << std::endl;
     return list;
 }

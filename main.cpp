@@ -103,7 +103,7 @@ int main(){
     op_data.open (filename_political_parties_output.c_str());
     for (int op_iter_a = 0; op_iter_a < setup.population; ++op_iter_a) {
         for (int op_iter_b = 0; op_iter_b <= setup.iterations; ++op_iter_b) {
-            op_data << (((parliament[op_iter_b])[op_iter_a]).party_index);
+            op_data << (((game_change[op_iter_b])[op_iter_a]).party_index);
             op_data << ",";
         }
         op_data << "\n";
