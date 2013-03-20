@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="84">
+<configurationDescriptor version="88">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>Party.h</itemPath>
+      <itemPath>Person.h</itemPath>
+      <itemPath>System.h</itemPath>
       <itemPath>def.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -13,10 +16,12 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>cluster.cpp</itemPath>
+      <itemPath>Graph.cpp</itemPath>
+      <itemPath>Graph.h</itemPath>
+      <itemPath>Party.cpp</itemPath>
+      <itemPath>Person.cpp</itemPath>
+      <itemPath>System.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
-      <itemPath>metric.cpp</itemPath>
-      <itemPath>normalize.cpp</itemPath>
       <itemPath>plod.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -40,6 +45,28 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <item path="Graph.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Graph.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Party.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Party.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Person.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Person.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="System.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="System.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="def.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="plod.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -60,6 +87,28 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="Graph.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Graph.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Party.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Party.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Person.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Person.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="System.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="System.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="def.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="plod.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>
