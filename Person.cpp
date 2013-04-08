@@ -3,7 +3,7 @@
 
 class Person {
 private:
-    set friends; // set of friendly nodes
+    std::set<int> friends; // set of friendly nodes
     int party_index; // political party
 public:
     Person(){
@@ -19,7 +19,7 @@ public:
     int getParty(){
         return party_index;
     }
-    set getFriends(){
+    std::set<int> getFriends(){
         return friends; 
     }
 } ;

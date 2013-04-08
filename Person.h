@@ -3,14 +3,14 @@
 
 class Person {
 private:
-    set friends;
+    std::set<int> friends;
     int party_index;
 public:
     Person();
     void switchParty(int new_party_index);
     void addFriend(int friend_id);
     int getParty();
-    set getFriends();
+    std::set<int> getFriends();
 } ;
 
 #endif	/* PERSON_H */

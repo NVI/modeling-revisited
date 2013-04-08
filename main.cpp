@@ -11,11 +11,15 @@
 #include "Party.h"
 #include "Person.h"
 #include "System.h"
-#include "Graph.h"
+#include "Setup.h"
+#include "Network.h"
+#include "Project.h"
 
-int main(){
+int main(int argc, char **argv){
     // initialization
-    struct Setup setup;
+    const std::string filenames [4] = {argv[1], argv[2], argv[3], argv[4]}; /* ppi, nsi, ppo, nso */
+    
+    const Setup setup = new Setup();
     
     System Finland = new System();
     Finland.addParty(setup, 0, {0.000, 0.254, 0.309, 0.267, 0.409, 0.425, 0.366, 0.570}); // Vihreat
@@ -27,63 +31,25 @@ int main(){
     Finland.addParty(setup, 6, {0.366, 0.368, 0.227, 0.251, 0.233, 0.163, 0.000, 0.204}); // Kristillisdemokraatit
     Finland.addParty(setup, 7, {0.570, 0.538, 0.377, 0.418, 0.329, 0.240, 0.204, 0.000}); // Perussuomalaiset
     
-    Graph network = new Graph(setup.population);
+    Network network = new Network(setup.getPopulation());
+    
+    Bundle bundle = new Bundle();
+    bundle.push_back(network);
+    
+    Project project = new Project(filenames, setup, Finland, bundle);
     
     // input
-    int ip_it = 0;
-    std::ifstream ip_data(setup.ppi.c_str());
-    std::string line1;
-    while (getline(ip_data,line1)){
-        std::stringstream lineStream(line1);
-        std::string cell1;
-        while (getline(lineStream,cell1,',')){
-            network[ip_it].switchParty(atoi(cell1.c_str()));
-            ++ip_it;
-        }
-    }
-    
-    int in_it = 0;
-    std::ifstream in_data(setup.nsi.c_str());
-    std::string line2;
-    while (getline(in_data,line2)){
-        std::stringstream lineStream(line2);
-        std::string cell2;
-        while (getline(lineStream,cell2,',')){
-            network[in_it].addFriend(atoi(cell2.c_str()));
-        }
-    }
-    
+    project.inputPolitics();
+    project.inputNetwork();
+
     // algorithm
-    evolutionary_path iterations;
-    iterations.push_back(network);
-    for (int algo_iter = 0; algo_iter <= setup.iterations; ++algo_iter) {
-        graph list_iter = cluster(setup, network, Finland, (algo_iter + 1));
-        iterations.push_back(list_iter);
-        network = list_iter;
+    for (int iterator = 0; iterator <= project.getIterations(); ++iterator) {
+        project.iterateBundle(iterator+1);
     }
     
     // output
-    std::ofstream op_data;
-    op_data.open (setup.ppo.c_str());
-    for (int op_itA = 0; op_itA < setup.population; ++op_itA) {
-        for (int op_itB = 0; op_itB <= setup.iterations; ++op_itB) {
-            op_data << (((iterations[op_itB])[op_itA]).getParty());
-            op_data << ",";
-        }
-        op_data << "\n";
-    }
-    op_data.close();
-    
-    std::ofstream on_data;
-    on_data.open (setup.nso.c_str());
-    for (int on_itA = 0; on_itA < setup.population; ++on_itA) {
-        for (std::set::iterator on_itB = network[on_itA].getFriends().begin(); on_itB != network[on_itA].getFriends().end(); ++on_itB) {
-            on_data << " " << *on_itB;
-            on_data << ",";
-        }
-        on_data << "\n";
-    }
-    on_data.close();
+    project.outputPolitics();
+    project.outputNetwork();
     
     return 0;
 }
