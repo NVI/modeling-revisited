@@ -35,12 +35,13 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Graph.o \
+	${OBJECTDIR}/Network.o \
 	${OBJECTDIR}/Party.o \
 	${OBJECTDIR}/Person.o \
+	${OBJECTDIR}/Project.o \
+	${OBJECTDIR}/Setup.o \
 	${OBJECTDIR}/System.o \
-	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/plod.o
+	${OBJECTDIR}/main.o
 
 
 # C Compiler Flags
@@ -67,10 +68,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/modeling-revisited.exe: ${OBJECTFILES
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/modeling-revisited ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/Graph.o: Graph.cpp 
+${OBJECTDIR}/Network.o: Network.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Graph.o Graph.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Network.o Network.cpp
 
 ${OBJECTDIR}/Party.o: Party.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -82,6 +83,16 @@ ${OBJECTDIR}/Person.o: Person.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Person.o Person.cpp
 
+${OBJECTDIR}/Project.o: Project.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Project.o Project.cpp
+
+${OBJECTDIR}/Setup.o: Setup.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Setup.o Setup.cpp
+
 ${OBJECTDIR}/System.o: System.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -91,11 +102,6 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
-
-${OBJECTDIR}/plod.o: plod.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/plod.o plod.cpp
 
 # Subprojects
 .build-subprojects:

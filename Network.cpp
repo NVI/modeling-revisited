@@ -1,35 +1,36 @@
+#include "Network.h"
+
 #include <vector>
 #include <set>
 #include <iostream>
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_01.hpp>
 #include "System.h"
-#include "Person.h"
 #include "Party.h"
-#include "def.h"
+#include "Setup.h"
 
 #include <boost/random/uniform_int.hpp>
 #include <boost/math/distributions.hpp>
 #include <algorithm>
 
 Network::Network(int n) {
-    nodes = new std::vector<>(n, new Person());
+    nodes = new std::vector<>(n, new std::pair<int, std::set<int> >);
 }
 
 void Network::switchParty(int my_index, int new_party_index) {
-    nodes[my_index].switchParty(new_party_index);
+    nodes[my_index].first = new_party_index;
 }
 
 void Network::addFriend(int my_index, int friend_index) {
-    nodes[my_index].addFriend(friend_index);
+    nodes[my_index].second.insert(friend_index);
 }
 
 int Network::getParty(int my_index) {
-    return nodes[my_index].getParty();
+    return nodes[my_index].first;
 }
 
 std::set<int> Network::getFriends(int my_index) {
-    return nodes[my_index].getFriends();
+    return nodes[my_index].second;
 }
 
 Network Network::cluster(Setup setup, System system, unsigned int prng_seed) {
@@ -42,7 +43,7 @@ Network Network::cluster(Setup setup, System system, unsigned int prng_seed) {
     prng.seed(static_cast<unsigned int> (prng_seed));
     boost::uniform_01<> prng_distrib;
     double random;
-    for (int i = 0; i < setup.population; ++i) {
+    for (int i = 0; i < setup.getPopulation(); ++i) {
         fset.insert(i);
     }
     while (fset.empty() == false) {
@@ -67,12 +68,12 @@ Network Network::cluster(Setup setup, System system, unsigned int prng_seed) {
                 }
                 ++w;
             }
-            for (int l = 0; l < setup.population; ++l) {
+            for (int l = 0; l < setup.getPopulation(); ++l) {
                 if (xset.count(l) == 1) {
                     xset.erase(l);
                     if (cset.count(l) == 0 && ((graph.nodes[k]).getFriends()).count(l) == 1 && (graph.nodes[k].getParty()) == (graph.nodes[l]).getParty()) {
                         random = prng_distrib(prng);
-                        double p = 1.0 - exp(-setup.inverse_temperature);
+                        double p = 1.0 - exp(-setup.getInvTemperature());
                         if (random < p) {
                             cset.insert(l);
                             pset.insert(l);
@@ -95,7 +96,7 @@ Network Network::cluster(Setup setup, System system, unsigned int prng_seed) {
         }
         random = prng_distrib(prng);
         int new_party = system.getParty(graph.nodes[first_index]).metric(random);
-        for (int j = 0; j < setup.population; ++j) {
+        for (int j = 0; j < setup.getPopulation(); ++j) {
             if (clusters[i].count(j) == 1) {
                 if (graph.nodes[j].getParty() != new_party) {
                     ++number_of_changes;
@@ -112,14 +113,14 @@ Network Network::plod(Setup setup) {
     Network graph = this;
 
     // Boost setup
-    setup.prng.seed(static_cast<unsigned int> (setup.seed));
+    setup.prng.seed(static_cast<unsigned int> (setup.getSeed()));
     boost::uniform_01<> prng_double;
-    boost::uniform_int<> prng_int(0, (setup.population - 1));
-    boost::math::pareto_distribution<double> pareto(setup.x_m, setup.alpha);
+    boost::uniform_int<> prng_int(0, (setup.getPopulation() - 1));
+    boost::math::pareto_distribution<double> pareto(setup.getXm(), setup.getAlpha());
 
     // a Pareto variable determines the number of friendships for each node
     std::vector<int> friendships;
-    for (int i = 0; i < setup.population; ++i) {
+    for (int i = 0; i < setup.getPopulation(); ++i) {
         double random_pareto = boost::math::quantile(pareto, prng_double(prng));
         int random_pareto_int = (int) random_pareto;
         friendships.push_back(random_pareto_int);
@@ -128,7 +129,7 @@ Network Network::plod(Setup setup) {
     // determining the total number of friendships 
     int acc_connections = std::accumulate(friendships.begin(), friendships.end(), 0);
     std::cout << acc_connections / 2 << std::endl;
-    int minimum = std::min(acc_connections / 2, setup.connections_limit);
+    int minimum = std::min(acc_connections / 2, setup.getConnectionsLimit());
 
     // creating actual links
     for (int link = 0; link < minimum; ++link) {

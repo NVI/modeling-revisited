@@ -11,7 +11,7 @@ public:
     Network cluster(Setup setup, System system, unsigned int prng_seed);
     Network plod(Setup setup);
 private:
-    std::vector<Person> nodes;
+    std::vector<std::pair<int, std::set<int> > > nodes; // first: political party; second: set of friendly nodes
 };
 
 typedef std::vector<Network> Bundle;

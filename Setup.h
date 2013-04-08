@@ -1,10 +1,3 @@
-/* 
- * File:   Setup.h
- * Author: Niko
- *
- * Created on 8. huhtikuuta 2013, 1:54
- */
-
 #ifndef SETUP_H
 #define	SETUP_H
 
@@ -13,6 +6,12 @@ public:
     Setup();
     int getIterations();
     int getPopulation();
+    int getConnectionsLimit();
+    double getInvTemperature();
+    double getLambda();
+    double getAlpha();
+    double getXm();
+    unsigned int getSeed();
 private:
     const int iterations; /* number of iterations */
     const int population; /* population count */
