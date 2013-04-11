@@ -55,8 +55,8 @@ void Network::cluster(Setup setup, System system, boost::random::mt19937 prng, b
                 int candidate = *it;
                 bool conditions [3];
                 conditions[0] = (!current_cluster.count(candidate)); // not yet in current cluster
-                conditions[1] = (this->friends[socialite].count(candidate)); // they are friends
-                conditions[2] = (this->party[socialite] == this->party[candidate]); // they belong to same party
+                conditions[1] = (friends[socialite].count(candidate)); // they are friends
+                conditions[2] = (party[socialite] == party[candidate]); // they belong to same party
                 if (conditions[0] && (conditions[1] && conditions[2])) {
                         random = rfloat(prng);
                         double p = 1.0 - exp(-setup.getInvTemperature());
@@ -80,10 +80,10 @@ void Network::cluster(Setup setup, System system, boost::random::mt19937 prng, b
         random = rfloat(prng);
         int new_party = system.getParty(party[member]).metric(random);
         for (std::set<int>::iterator it = list_of_clusters[i].begin(); it != list_of_clusters[i].end(); ++it) {
-                if (this->party[*it] != new_party) {
+                if (party[*it] != new_party) {
                     ++number_of_changes;
                 }
-                this->party[*it] = new_party;
+                party[*it] = new_party;
         }
     }
     std::cout << "Changes:" << number_of_changes << std::endl; // only for testing
@@ -118,13 +118,13 @@ void Network::plod(Setup setup, boost::random::mt19937 prng, boost::uniform_01<>
                 break;
             }
             // if this connection has already been established
-            int established = this->friends[r[0]].count(r[1]);
+            int established = friends[r[0]].count(r[1]);
             if (friendships[r[0]] > 0 && friendships[r[1]] > 0 && !established) {
                 --friendships[r[0]];
                 --friendships[r[1]];
                 acc_connections -= 2;
-                this->friends[r[0]].insert(r[1]);
-                this->friends[r[1]].insert(r[0]);
+                friends[r[0]].insert(r[1]);
+                friends[r[1]].insert(r[0]);
                 break;
             }
         }
