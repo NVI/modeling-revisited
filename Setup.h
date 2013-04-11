@@ -4,13 +4,13 @@
 class Setup {
 public:
     Setup();
-    int getIterations();
-    int getPopulation();
-    int getConnectionsLimit();
-    double getInvTemperature();
-    double getLambda();
-    double getAlpha();
-    double getXm();
+    int getIterations() const;
+    int getPopulation() const;
+    int getConnectionsLimit() const;
+    double getInvTemperature() const;
+    double getLambda() const;
+    double getAlpha() const;
+    double getXm() const;
 private:
     const int iterations; /* number of iterations */
     const int population; /* population count */

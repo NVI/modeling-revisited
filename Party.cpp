@@ -6,7 +6,7 @@
 Party::Party(std::vector<double> distances) : distances(distances) {
 }
 
-int Party::getDistance(int index) {
+int Party::getDistance(int index) const {
     return distances[index];
 }
 
@@ -25,7 +25,7 @@ void Party::normalize(double lambda) {
     }
 }
 
-int Party::metric(double random_variable) {
+int Party::metric(double random_variable) const {
     double threshold = 0.0;
     int i = -1;
     if (random_variable < 0.00001) {

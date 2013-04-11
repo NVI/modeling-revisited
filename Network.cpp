@@ -25,11 +25,11 @@ void Network::addFriend(int my_index, int friend_index) {
     friends[my_index].insert(friend_index);
 }
 
-int Network::getParty(int my_index) {
+int Network::getParty(int my_index) const {
     return party[my_index];
 }
 
-std::set<int> Network::getFriends(int my_index) {
+std::set<int> Network::getFriends(int my_index) const {
     return friends[my_index];
 }
 

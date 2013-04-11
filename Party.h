@@ -6,10 +6,10 @@
 class Party {
 public:
     Party(std::vector<double> distances);
-    int getDistance(int index);
+    int getDistance(int index) const;
     void putDistance(int index, double distance);
     void normalize(double lambda);
-    int metric(double random_variable);
+    int metric(double random_variable) const;
 private:
     std::vector<double> distances;
 };

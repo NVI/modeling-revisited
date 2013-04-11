@@ -14,6 +14,6 @@ void System::addParty(double lambda, std::vector<double> distances) {
     parties.push_back(party);
 }
 
-Party System::getParty(int index) {
+Party System::getParty(int index) const {
     return parties[index];
 }
