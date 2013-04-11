@@ -119,7 +119,8 @@ void Network::plod(Setup setup, boost::random::mt19937 prng, boost::uniform_01<>
             }
             // if this connection has already been established
             int established = friends[r[0]].count(r[1]);
-            if (friendships[r[0]] > 0 && friendships[r[1]] > 0 && !established) {
+            bool friendships_left = (friendships[r[0]] > 0) && (friendships[r[1]] > 0);
+            if (friendships_left && !established) {
                 --friendships[r[0]];
                 --friendships[r[1]];
                 acc_connections -= 2;

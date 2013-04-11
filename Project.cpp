@@ -12,7 +12,7 @@ Project::Project(std::vector<std::string> filenames, Setup setup, System system,
 
 void Project::inputPolitics() {
     int iterator = 0;
-    std::ifstream data(filenames[0].c_str(), std::ifstream::in);
+    std::fstream data(filenames[0].c_str(), std::fstream::in);
     std::string line;
     while (getline(data, line)) {
         std::stringstream lineStream(line);
@@ -27,7 +27,7 @@ void Project::inputPolitics() {
 
 void Project::inputNetwork() {
     int iterator = 0;
-    std::ifstream data(filenames[1].c_str(), std::ifstream::in);
+    std::fstream data(filenames[1].c_str(), std::fstream::in);
     std::string line;
     while (getline(data, line)) {
         std::stringstream lineStream(line);
@@ -46,8 +46,7 @@ void Project::iterateBundle(boost::random::mt19937 prng, boost::uniform_01<> rfl
 }
 
 void Project::outputPolitics() {
-    std::ofstream data(filenames[2].c_str(), std::ofstream::out);
-    // data.open (filenames[2].c_str());
+    std::fstream data(filenames[2].c_str(), std::fstream::out);
     for (int iteratorA = 0; iteratorA < setup.getPopulation(); ++iteratorA) {
         for (int iteratorB = 0; iteratorB <= setup.getIterations(); ++iteratorB) {
             data << bundle[iteratorB].getParty(iteratorA);
@@ -59,8 +58,7 @@ void Project::outputPolitics() {
 }
 
 void Project::outputNetwork() {
-    std::ofstream data(filenames[3].c_str(), std::ofstream::out);
-    // data.open (filenames[3].c_str());
+    std::fstream data(filenames[3].c_str(), std::fstream::out);
     for (int index = 0; index < setup.getPopulation(); ++index) {
         std::set<int> this_set = bundle.back().getFriends(index);
         for (std::set<int>::iterator it = this_set.begin(); it != this_set.end(); ++it) {
