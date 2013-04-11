@@ -1,13 +1,17 @@
 #ifndef SYSTEM_H
 #define	SYSTEM_H
 
+#include <map>
+#include <vector>
+#include "Party.h"
+
 class System {
 public:
     System();
-    void addParty(Setup setup, int index, double distances [8]);
+    void addParty(double lambda, std::vector<double> distances);
     Party getParty(int index);
 private:
-    std::map<int, Party> parties;
+    std::vector<Party> parties;
  };
 
 #endif	/* SYSTEM_H */

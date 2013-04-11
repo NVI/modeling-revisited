@@ -1,20 +1,21 @@
 #ifndef PROJECT_H
 #define	PROJECT_H
 
+#include <vector>
+#include <string>
+#include "Network.h"
+
 class Project {
 public:
-    Project(const std::string filenames [4], const Setup setup, System system, Bundle bundle);
-    int getIterations();
+    Project(std::vector<std::string> filenames, Setup setup, System system, Bundle bundle);
     void inputPolitics();
     void inputNetwork();
+    void iterateBundle(boost::random::mt19937 prng, boost::uniform_01<> rfloat);
     void outputPolitics();
     void outputNetwork();
-    void iterateBundle(int rand);
-    Project(const Project& orig);
-    virtual ~Project();
 private:
-    const std::string filenames [4];
-    const Setup setup;
+    std::vector<std::string> filenames;
+    Setup setup;
     System system;
     Bundle bundle;
 };

@@ -1,17 +1,17 @@
 #include <vector>
+#include <string>
+#include <set>
+#include <fstream>
+#include <iostream>
 #include "Project.h"
 #include "Setup.h"
 
-Project::Project(const std::string filenames [4], const Setup setup, System system, Bundle bundle) : filenames(filenames), setup(setup), system(system), bundle(bundle) {
-}
-
-int Project::getIterations() {
-    return setup.getIterations();
+Project::Project(std::vector<std::string> filenames, Setup setup, System system, Bundle bundle) : filenames(filenames), setup(setup), system(system), bundle(bundle) {
 }
 
 void Project::inputPolitics() {
     int iterator = 0;
-    std::ifstream data(filenames[0].c_str());
+    std::ifstream data(filenames[0].c_str(), std::ifstream::in);
     std::string line;
     while (getline(data,line)){
         std::stringstream lineStream(line);
@@ -21,11 +21,12 @@ void Project::inputPolitics() {
             ++iterator;
         }
     }
+    data.close();
 }
 
 void Project::inputNetwork() {
     int iterator = 0;
-    std::ifstream data(filenames[1].c_str());
+    std::ifstream data(filenames[1].c_str(), std::ifstream::in);
     std::string line;
     while (getline(data,line)){
         std::stringstream lineStream(line);
@@ -34,17 +35,18 @@ void Project::inputNetwork() {
             bundle.front().addFriend(iterator, atoi(cell.c_str()));
         }
     }
+    data.close();
 }
 
-void Project::iterateBundle(int rand) {
-    Network network = bundle.back().cluster(setup, system, rand);
+void Project::iterateBundle(boost::random::mt19937 prng, boost::uniform_01<> rfloat) {
+    Network network = bundle.back();
+    network.cluster(setup, system, prng, rfloat);
     bundle.push_back(network);
-    
 }
 
 void Project::outputPolitics() {
-    std::ofstream data;
-    data.open (filenames[2].c_str());
+    std::ofstream data (filenames[2].c_str(), std::ofstream::out);
+    // data.open (filenames[2].c_str());
     for (int iteratorA = 0; iteratorA < setup.getPopulation(); ++iteratorA) {
         for (int iteratorB = 0; iteratorB <= setup.getIterations(); ++iteratorB) {
             data << bundle[iteratorB].getParty(iteratorA);
@@ -56,21 +58,14 @@ void Project::outputPolitics() {
 }
 
 void Project::outputNetwork() {
-    std::ofstream data;
-    data.open (filenames[3].c_str());
-    for (int iteratorA = 0; iteratorA < setup.getPopulation(); ++iteratorA) {
-        for (std::set::iterator iteratorB = bundle.back().getFriends(iteratorA).begin(); iteratorB != bundle.back().getFriends(iteratorA).end(); ++iteratorB) {
-            data << " " << *iteratorB;
-            data << ",";
+    std::ofstream data (filenames[3].c_str(), std::ofstream::out);
+    // data.open (filenames[3].c_str());
+    for (int index = 0; index < setup.getPopulation(); ++index) {
+        std::set<int> this_set = bundle.back().getFriends(index);
+        for (std::set<int>::iterator it = this_set.begin(); it != this_set.end(); ++it) {
+            data << *it << ",";
         }
         data << "\n";
     }
     data.close();
 }
-
-Project::Project(const Project& orig) {
-}
-
-Project::~Project() {
-}
-

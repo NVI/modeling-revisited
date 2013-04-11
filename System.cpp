@@ -1,19 +1,19 @@
 #include <map>
+#include <vector>
 #include "Party.h"
+#include "System.h"
+#include "Setup.h"
 
-class System {
-private:
-    std::map<int, Party> parties;
-public:
-    System(){
-    }
-    void addParty(Setup setup, int index, double distances [8]){
-        Party party = new Party(distances);
-        party.normalize(setup);
-        parties.insert(index, party);
-    }
-    Party getParty(int index){
+
+System::System() {
+}
+
+void System::addParty(double lambda, std::vector<double> distances){
+        Party party(distances);
+        party.normalize(lambda);
+        parties.push_back(party);
+}
+
+Party System::getParty(int index){
         return parties[index];
-    }
- };
-
+}

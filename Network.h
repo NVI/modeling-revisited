@@ -1,17 +1,28 @@
 #ifndef NETWORK_H
 #define	NETWORK_H
 
+#include <set>
+#include "Setup.h"
+#include "System.h"
+#include <vector>
+
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_01.hpp>
+#include <boost/random/uniform_int.hpp>
+#include <boost/math/distributions.hpp>
+
 class Network {
 public:
-    Network(int n);
+    Network(std::vector<int> party, std::vector<std::set<int> > friends);
     void switchParty(int my_index, int party_index);
     void addFriend(int my_index, int friend_index);
     int getParty(int my_index);
     std::set<int> getFriends(int my_index);
-    Network cluster(Setup setup, System system, unsigned int prng_seed);
-    void plod(Setup setup);
+    void cluster(Setup setup, System system, boost::random::mt19937 prng, boost::uniform_01<> rfloat);
+    void plod(Setup setup, boost::random::mt19937 prng, boost::uniform_01<> rfloat, boost::uniform_int<> rnode, boost::math::pareto_distribution<double> pareto);
 private:
-    std::vector<std::pair<int, std::set<int> > > nodes; // first: political party; second: set of friendly nodes
+    std::vector<int> party; // political party for each i
+    std::vector<std::set<int> > friends; // set of friendly nodes for each i
 };
 
 typedef std::vector<Network> Bundle;

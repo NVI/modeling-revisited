@@ -70,32 +70,32 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/modeling-revisited.exe: ${OBJECTFILES
 ${OBJECTDIR}/Network.o: Network.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Network.o Network.cpp
+	$(COMPILE.cc) -g -I/cygdrive/C/boost_1_53_0/libs -MMD -MP -MF $@.d -o ${OBJECTDIR}/Network.o Network.cpp
 
 ${OBJECTDIR}/Party.o: Party.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Party.o Party.cpp
+	$(COMPILE.cc) -g -I/cygdrive/C/boost_1_53_0/libs -MMD -MP -MF $@.d -o ${OBJECTDIR}/Party.o Party.cpp
 
 ${OBJECTDIR}/Project.o: Project.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Project.o Project.cpp
+	$(COMPILE.cc) -g -I/cygdrive/C/boost_1_53_0/libs -MMD -MP -MF $@.d -o ${OBJECTDIR}/Project.o Project.cpp
 
 ${OBJECTDIR}/Setup.o: Setup.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Setup.o Setup.cpp
+	$(COMPILE.cc) -g -I/cygdrive/C/boost_1_53_0/libs -MMD -MP -MF $@.d -o ${OBJECTDIR}/Setup.o Setup.cpp
 
 ${OBJECTDIR}/System.o: System.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/System.o System.cpp
+	$(COMPILE.cc) -g -I/cygdrive/C/boost_1_53_0/libs -MMD -MP -MF $@.d -o ${OBJECTDIR}/System.o System.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I/cygdrive/C/boost_1_53_0/libs -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:

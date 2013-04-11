@@ -1,0 +1,6 @@
+*.csv
+*.exe
+*.exe.*
+.dep.inc
+build/*
+dist/*

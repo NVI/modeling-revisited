@@ -1,7 +1,7 @@
 #include "Setup.h"
 
-Setup::Setup() : iterations(200), population(1050), connections_limit(6300), inverse_temperature(0.1), lambda(32.0), alpha(1.0), x_m(3.0), seed(0), prng() {
-}
+Setup::Setup() : iterations(200), population(1600), connections_limit(10000), inverse_temperature(0.1), lambda(32.0), alpha(1.0), x_m(4.0) {
+} // originals: iterations=200, population=1050, connections_limit=6300, invtemp=0.1, lambda=32, alpha=1, xm=3
 
 int Setup::getIterations() {
     return iterations;
@@ -29,12 +29,4 @@ double Setup::getAlpha() {
 
 double Setup::getXm() {
     return x_m;
-}
-
-unsigned int Setup::getSeed() {
-    return seed;
-}
-
-boost::random::mt19937 Setup::getGen() {
-    return prng;
 }

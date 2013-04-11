@@ -14,10 +14,10 @@ void Party::putDistance(int index, double distance){
       distances[index] = distance;
 }
 
-void Party::normalize (Setup setup){
+void Party::normalize (double lambda){
       double normalization_term = 0.0;
       for (int i = 0; i < distances.size(); ++i){
-        distances[i] = exp(-setup.getLambda()*distances[i]);
+        distances[i] = exp(-lambda*distances[i]);
         normalization_term += distances[i];
       }
       for (int i = 0; i < distances.size(); ++i){
@@ -34,7 +34,7 @@ int Party::metric (double random_variable){
       else {
         while (random_variable > threshold){
           ++i;
-          threshold += (double)getDistance(i);
+          threshold += distances[i];
         }
         return i;
       }

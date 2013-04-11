@@ -46,6 +46,11 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>C:/boost_1_53_0/libs</pElem>
+          </incDir>
+        </ccTool>
       </compileType>
       <item path="Network.cpp" ex="false" tool="1" flavor2="0">
       </item>

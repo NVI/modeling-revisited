@@ -11,8 +11,6 @@ public:
     double getLambda();
     double getAlpha();
     double getXm();
-    unsigned int getSeed();
-    boost::random::mt19937 getGen();
 private:
     const int iterations; /* number of iterations */
     const int population; /* population count */
@@ -21,8 +19,6 @@ private:
     const double lambda; /* statistical parameter */
     const double alpha; /* Pareto distribution shape parameter */
     const double x_m; /* Pareto distribution scale (min) parameter */
-    const unsigned int seed; /* prng seed, variable over runs */
-    boost::random::mt19937 prng;
 };
 
 #endif	/* SETUP_H */
