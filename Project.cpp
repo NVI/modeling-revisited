@@ -1,10 +1,3 @@
-/* 
- * File:   Project.cpp
- * Author: Niko
- * 
- * Created on 8. huhtikuuta 2013, 1:29
- */
-
 #include <vector>
 #include "Project.h"
 #include "Setup.h"

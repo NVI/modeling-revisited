@@ -6,7 +6,6 @@
                    projectFiles="true">
       <itemPath>Network.h</itemPath>
       <itemPath>Party.h</itemPath>
-      <itemPath>Person.h</itemPath>
       <itemPath>Project.h</itemPath>
       <itemPath>Setup.h</itemPath>
       <itemPath>System.h</itemPath>
@@ -20,7 +19,6 @@
                    projectFiles="true">
       <itemPath>Network.cpp</itemPath>
       <itemPath>Party.cpp</itemPath>
-      <itemPath>Person.cpp</itemPath>
       <itemPath>Project.cpp</itemPath>
       <itemPath>Setup.cpp</itemPath>
       <itemPath>System.cpp</itemPath>
@@ -44,6 +42,8 @@
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
       </compileType>
@@ -54,10 +54,6 @@
       <item path="Party.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Party.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Person.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Person.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Project.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -78,6 +74,8 @@
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -100,10 +98,6 @@
       <item path="Party.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Party.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Person.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Person.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Project.cpp" ex="false" tool="1" flavor2="0">
       </item>

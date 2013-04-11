@@ -1,24 +1,24 @@
 #include "Network.h"
-
-#include <vector>
-#include <set>
-#include <iostream>
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/uniform_01.hpp>
 #include "System.h"
 #include "Party.h"
 #include "Setup.h"
 
+#include <vector>
+#include <set>
+#include <iostream>
+#include <algorithm>
+
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_01.hpp>
 #include <boost/random/uniform_int.hpp>
 #include <boost/math/distributions.hpp>
-#include <algorithm>
 
 Network::Network(int n) {
     nodes = new std::vector<>(n, new std::pair<int, std::set<int> >);
 }
 
-void Network::switchParty(int my_index, int new_party_index) {
-    nodes[my_index].first = new_party_index;
+void Network::switchParty(int my_index, int party_index) {
+    nodes[my_index].first = party_index;
 }
 
 void Network::addFriend(int my_index, int friend_index) {
@@ -34,127 +34,106 @@ std::set<int> Network::getFriends(int my_index) {
 }
 
 Network Network::cluster(Setup setup, System system, unsigned int prng_seed) {
-    Network graph = this;
-    std::set<int> fset;
-    std::set<int> cset;
-    std::set<int> pset;
-    std::vector<std::set<int> > clusters;
-    boost::mt19937 prng;
-    prng.seed(static_cast<unsigned int> (prng_seed));
-    boost::uniform_01<> prng_distrib;
+    Network clustered = *this;
+    std::set<int> not_in_cluster;
+    std::set<int> current_cluster;
+    std::set<int> potential_expanders;
+    std::vector<std::set<int> > list_of_clusters;
+    boost::uniform_01<> rfloat;
     double random;
     for (int i = 0; i < setup.getPopulation(); ++i) {
-        fset.insert(i);
+        not_in_cluster.insert(i);
     }
-    while (fset.empty() == false) {
-        int choice = -1;
-        int choice_iter = 0;
-        while (choice == -1) {
-            if (fset.count(choice_iter) == 1) {
-                choice = choice_iter;
-            }
-            ++choice_iter;
-        }
-        cset.insert(choice);
-        pset.insert(choice);
-        fset.erase(choice);
-        std::set<int> xset = fset;
-        while (pset.empty() == false) {
-            int w = 0;
-            int k = -2;
-            while (w != (k + 1)) {
-                if (pset.count(w) == 1) {
-                    k = w;
-                }
-                ++w;
-            }
-            for (int l = 0; l < setup.getPopulation(); ++l) {
-                if (xset.count(l) == 1) {
-                    xset.erase(l);
-                    if (cset.count(l) == 0 && ((graph.nodes[k]).getFriends()).count(l) == 1 && (graph.nodes[k].getParty()) == (graph.nodes[l]).getParty()) {
-                        random = prng_distrib(prng);
+    // division into clusters 
+    while (!not_in_cluster.empty()) {
+        int founder = *not_in_cluster.begin();
+        current_cluster.insert(founder);
+        potential_expanders.insert(founder);
+        not_in_cluster.erase(founder);
+        while (!potential_expanders.empty()) {
+            int socialite = *potential_expanders.begin();
+            for (std::set<int>::iterator it = not_in_cluster.begin(); it != not_in_cluster.end(); ++it) {
+                int candidate = *it;
+                bool conditions [3];
+                conditions[0] = (!current_cluster.count(candidate)); // not yet in current cluster
+                conditions[1] = (clustered.nodes[socialite].second.count(candidate)); // they are friends
+                conditions[2] = (clustered.nodes[socialite].first == clustered.nodes[candidate].first); // they belong to same party
+                if (conditions[0] && (conditions[1] && conditions[2])) {
+                        random = rfloat(setup.getGen());
                         double p = 1.0 - exp(-setup.getInvTemperature());
                         if (random < p) {
-                            cset.insert(l);
-                            pset.insert(l);
-                            fset.erase(l);
+                                current_cluster.insert(candidate);
+                                potential_expanders.insert(candidate);
+                                not_in_cluster.erase(candidate);
                         }
-                    }
                 }
             }
-            pset.erase(k);
+            potential_expanders.erase(socialite);
         }
-        clusters.push_back(cset);
-        pset.clear();
-        cset.clear();
+        list_of_clusters.push_back(current_cluster);
+        potential_expanders.clear();
+        current_cluster.clear();
     }
+    // changing affiliations
     int number_of_changes = 0;
-    for (int i = 0; i < clusters.size(); ++i) {
-        int first_index = 0;
-        while (clusters[i].count(first_index) == 0) {
-            ++first_index;
-        }
-        random = prng_distrib(prng);
-        int new_party = system.getParty(graph.nodes[first_index]).metric(random);
-        for (int j = 0; j < setup.getPopulation(); ++j) {
-            if (clusters[i].count(j) == 1) {
-                if (graph.nodes[j].getParty() != new_party) {
+    for (int i = 0; i < list_of_clusters.size(); ++i) {
+        int member = *list_of_clusters[i].begin(); // any member is enough
+        random = rfloat(setup.getGen());
+        int new_party = system.getParty(clustered.nodes[member]).metric(random);
+        for (std::set<int>::iterator it = list_of_clusters[i].begin(); it != list_of_clusters[i].end(); ++it) {
+                if (clustered.nodes[*it].first != new_party) {
                     ++number_of_changes;
                 }
-                graph.nodes[j].switchParty(new_party);
-            }
+                clustered.nodes[*it].first = new_party;          
         }
     }
-    std::cout << number_of_changes << std::endl;
-    return graph;
+    std::cout << number_of_changes << std::endl; // only for testing
+    return clustered;
 }
 
-Network Network::plod(Setup setup) {
-    Network graph = this;
-
+void Network::plod(Setup setup) {
     // Boost setup
-    setup.prng.seed(static_cast<unsigned int> (setup.getSeed()));
-    boost::uniform_01<> prng_double;
-    boost::uniform_int<> prng_int(0, (setup.getPopulation() - 1));
+    boost::uniform_01<> rfloat;
+    boost::uniform_int<> rnode(0, (setup.getPopulation() - 1));
     boost::math::pareto_distribution<double> pareto(setup.getXm(), setup.getAlpha());
 
-    // a Pareto variable determines the number of friendships for each node
+    // numbers of friendships for each node taken from Pareto distribution
     std::vector<int> friendships;
     for (int i = 0; i < setup.getPopulation(); ++i) {
-        double random_pareto = boost::math::quantile(pareto, prng_double(prng));
-        int random_pareto_int = (int) random_pareto;
-        friendships.push_back(random_pareto_int);
+        double rpareto = boost::math::quantile(pareto, rfloat(setup.getGen()));
+        int int_rpareto = (int) rpareto;
+        friendships.push_back(int_rpareto);
     }
 
-    // determining the total number of friendships 
+    // determining total number of friendships 
     int acc_connections = std::accumulate(friendships.begin(), friendships.end(), 0);
-    std::cout << acc_connections / 2 << std::endl;
-    int minimum = std::min(acc_connections / 2, setup.getConnectionsLimit());
+    std::cout << acc_connections/2 << std::endl; // only for testing
+    int min_connections = std::min(acc_connections/2, setup.getConnectionsLimit());
 
     // creating actual links
-    for (int link = 0; link < minimum; ++link) {
-        bool condition = true;
-        while (condition == true) {
-            int r[2] = {prng_int(prng), prng_int(prng)}; // two random integers
+    for (int link = 0; link < min_connections; ++link) {
+        while (true) {
+            // two random nodes
+            int r[2] = {rnode(setup.getGen()), rnode(setup.getGen())};
+            // r[0] != r[1] required
             while (r[0] == r[1]) {
-                r[0] = prng_int(prng);
-                r[1] = prng_int(prng);
-            } // r[0] != r[1]
-            if (acc_connections < 2) {
-                condition = false;
+                r[0] = rnode(setup.getGen());
+                r[1] = rnode(setup.getGen());
             }
-            int established = (graph[r[0]]).friends.count(r[1]);
-            if (friendships[r[0]] > 0 && friendships[r[1]] > 0 && established == 0) {
+            // if not enough connections left to be established
+            if (acc_connections < 2) {
+                break;
+            }
+            // if this connection has already been established
+            int established = this->nodes[r[0]].second.count(r[1]);
+            if (friendships[r[0]] > 0 && friendships[r[1]] > 0 && !established) {
                 --friendships[r[0]];
                 --friendships[r[1]];
                 acc_connections -= 2;
-                (graph[r[0]]).friends.insert(r[1]);
-                (graph[r[1]]).friends.insert(r[0]);
-                condition = false;
+                this->nodes[r[0]].second.insert(r[1]);
+                this->nodes[r[1]].second.insert(r[0]);
+                break;
             }
         }
     }
-
-    // returning adjacency list
-    return graph;
 }

@@ -7,9 +7,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#include "def.h"
 #include "Party.h"
-#include "Person.h"
 #include "System.h"
 #include "Setup.h"
 #include "Network.h"
@@ -31,7 +29,10 @@ int main(int argc, char **argv){
     Finland.addParty(setup, 6, {0.366, 0.368, 0.227, 0.251, 0.233, 0.163, 0.000, 0.204}); // Kristillisdemokraatit
     Finland.addParty(setup, 7, {0.570, 0.538, 0.377, 0.418, 0.329, 0.240, 0.204, 0.000}); // Perussuomalaiset
     
+    setup.getGen().seed(static_cast<unsigned int> (setup.getSeed()));
+    
     Network network = new Network(setup.getPopulation());
+    network.plod(setup);
     
     Bundle bundle = new Bundle();
     bundle.push_back(network);

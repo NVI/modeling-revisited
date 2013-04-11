@@ -37,7 +37,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Network.o \
 	${OBJECTDIR}/Party.o \
-	${OBJECTDIR}/Person.o \
 	${OBJECTDIR}/Project.o \
 	${OBJECTDIR}/Setup.o \
 	${OBJECTDIR}/System.o \
@@ -77,11 +76,6 @@ ${OBJECTDIR}/Party.o: Party.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Party.o Party.cpp
-
-${OBJECTDIR}/Person.o: Person.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Person.o Person.cpp
 
 ${OBJECTDIR}/Project.o: Project.cpp 
 	${MKDIR} -p ${OBJECTDIR}

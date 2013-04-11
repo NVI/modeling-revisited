@@ -12,6 +12,7 @@ public:
     double getAlpha();
     double getXm();
     unsigned int getSeed();
+    boost::random::mt19937 getGen();
 private:
     const int iterations; /* number of iterations */
     const int population; /* population count */
@@ -25,4 +26,3 @@ private:
 };
 
 #endif	/* SETUP_H */
-

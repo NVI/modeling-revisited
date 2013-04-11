@@ -1,6 +1,5 @@
 #include <map>
 #include "Party.h"
-#include "def.h"
 
 class System {
 private:

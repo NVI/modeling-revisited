@@ -1,10 +1,3 @@
-/* 
- * File:   Project.h
- * Author: Niko
- *
- * Created on 8. huhtikuuta 2013, 1:29
- */
-
 #ifndef PROJECT_H
 #define	PROJECT_H
 
@@ -27,4 +20,3 @@ private:
 };
 
 #endif	/* PROJECT_H */
-

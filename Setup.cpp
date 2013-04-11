@@ -34,3 +34,7 @@ double Setup::getXm() {
 unsigned int Setup::getSeed() {
     return seed;
 }
+
+boost::random::mt19937 Setup::getGen() {
+    return prng;
+}
