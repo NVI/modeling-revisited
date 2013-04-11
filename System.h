@@ -1,9 +1,9 @@
 #ifndef SYSTEM_H
 #define	SYSTEM_H
 
-#include <map>
-#include <vector>
 #include "Party.h"
+
+#include <vector>
 
 class System {
 public:
@@ -12,6 +12,6 @@ public:
     Party getParty(int index);
 private:
     std::vector<Party> parties;
- };
+};
 
 #endif	/* SYSTEM_H */

@@ -3,13 +3,13 @@
 
 #include <vector>
 
-class Party{
+class Party {
 public:
     Party(std::vector<double> distances);
     int getDistance(int index);
     void putDistance(int index, double distance);
     void normalize(double lambda);
-    int metric (double random_variable);
+    int metric(double random_variable);
 private:
     std::vector<double> distances;
 };

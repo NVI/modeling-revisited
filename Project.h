@@ -1,9 +1,13 @@
 #ifndef PROJECT_H
 #define	PROJECT_H
 
+#include "Network.h"
+
 #include <vector>
 #include <string>
-#include "Network.h"
+
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_01.hpp>
 
 class Project {
 public:

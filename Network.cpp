@@ -58,13 +58,13 @@ void Network::cluster(Setup setup, System system, boost::random::mt19937 prng, b
                 conditions[1] = (friends[socialite].count(candidate)); // they are friends
                 conditions[2] = (party[socialite] == party[candidate]); // they belong to same party
                 if (conditions[0] && (conditions[1] && conditions[2])) {
-                        random = rfloat(prng);
-                        double p = 1.0 - exp(-setup.getInvTemperature());
-                        if (random < p) {
-                                current_cluster.insert(candidate);
-                                potential_expanders.insert(candidate);
-                                not_in_cluster.erase(candidate);
-                        }
+                    random = rfloat(prng);
+                    double p = 1.0 - exp(-setup.getInvTemperature());
+                    if (random < p) {
+                        current_cluster.insert(candidate);
+                        potential_expanders.insert(candidate);
+                        not_in_cluster.erase(candidate);
+                    }
                 }
             }
             potential_expanders.erase(socialite);
@@ -80,10 +80,10 @@ void Network::cluster(Setup setup, System system, boost::random::mt19937 prng, b
         random = rfloat(prng);
         int new_party = system.getParty(party[member]).metric(random);
         for (std::set<int>::iterator it = list_of_clusters[i].begin(); it != list_of_clusters[i].end(); ++it) {
-                if (party[*it] != new_party) {
-                    ++number_of_changes;
-                }
-                party[*it] = new_party;
+            if (party[*it] != new_party) {
+                ++number_of_changes;
+            }
+            party[*it] = new_party;
         }
     }
     std::cout << "Changes:" << number_of_changes << std::endl; // only for testing
@@ -100,8 +100,8 @@ void Network::plod(Setup setup, boost::random::mt19937 prng, boost::uniform_01<>
 
     // determining total number of friendships 
     int acc_connections = std::accumulate(friendships.begin(), friendships.end(), 0);
-    std::cout << "Connections:" << acc_connections/2 << std::endl; // only for testing
-    int min_connections = std::min(acc_connections/2, setup.getConnectionsLimit());
+    std::cout << "Connections:" << acc_connections / 2 << std::endl; // only for testing
+    int min_connections = std::min(acc_connections / 2, setup.getConnectionsLimit());
 
     // creating actual links
     for (int link = 0; link < min_connections; ++link) {

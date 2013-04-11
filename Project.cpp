@@ -1,10 +1,11 @@
+#include "Project.h"
+#include "Setup.h"
+
 #include <vector>
 #include <string>
 #include <set>
 #include <fstream>
 #include <iostream>
-#include "Project.h"
-#include "Setup.h"
 
 Project::Project(std::vector<std::string> filenames, Setup setup, System system, Bundle bundle) : filenames(filenames), setup(setup), system(system), bundle(bundle) {
 }
@@ -13,10 +14,10 @@ void Project::inputPolitics() {
     int iterator = 0;
     std::ifstream data(filenames[0].c_str(), std::ifstream::in);
     std::string line;
-    while (getline(data,line)){
+    while (getline(data, line)) {
         std::stringstream lineStream(line);
         std::string cell;
-        while (getline(lineStream,cell,',')){
+        while (getline(lineStream, cell, ',')) {
             bundle.front().switchParty(iterator, atoi(cell.c_str()));
             ++iterator;
         }
@@ -28,10 +29,10 @@ void Project::inputNetwork() {
     int iterator = 0;
     std::ifstream data(filenames[1].c_str(), std::ifstream::in);
     std::string line;
-    while (getline(data,line)){
+    while (getline(data, line)) {
         std::stringstream lineStream(line);
         std::string cell;
-        while (getline(lineStream,cell,',')){
+        while (getline(lineStream, cell, ',')) {
             bundle.front().addFriend(iterator, atoi(cell.c_str()));
         }
     }
@@ -45,7 +46,7 @@ void Project::iterateBundle(boost::random::mt19937 prng, boost::uniform_01<> rfl
 }
 
 void Project::outputPolitics() {
-    std::ofstream data (filenames[2].c_str(), std::ofstream::out);
+    std::ofstream data(filenames[2].c_str(), std::ofstream::out);
     // data.open (filenames[2].c_str());
     for (int iteratorA = 0; iteratorA < setup.getPopulation(); ++iteratorA) {
         for (int iteratorB = 0; iteratorB <= setup.getIterations(); ++iteratorB) {
@@ -58,7 +59,7 @@ void Project::outputPolitics() {
 }
 
 void Project::outputNetwork() {
-    std::ofstream data (filenames[3].c_str(), std::ofstream::out);
+    std::ofstream data(filenames[3].c_str(), std::ofstream::out);
     // data.open (filenames[3].c_str());
     for (int index = 0; index < setup.getPopulation(); ++index) {
         std::set<int> this_set = bundle.back().getFriends(index);

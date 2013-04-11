@@ -1,9 +1,10 @@
 #ifndef NETWORK_H
 #define	NETWORK_H
 
-#include <set>
 #include "Setup.h"
 #include "System.h"
+
+#include <set>
 #include <vector>
 
 #include <boost/random/mersenne_twister.hpp>
