@@ -5,6 +5,7 @@
 #include <string>
 #include <set>
 #include <fstream>
+#include <sstream>
 #include <iostream>
 
 Project::Project(std::vector<std::string> filenames, Setup setup, System system, Bundle bundle) : filenames(filenames), setup(setup), system(system), bundle(bundle) {
