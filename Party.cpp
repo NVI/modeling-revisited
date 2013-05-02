@@ -1,6 +1,5 @@
-#include "Party.h"
+#include "Definitions.h"
 
-#include <vector>
 #include <cmath>
 
 Party::Party(std::vector<double> distances) : distances(distances) {

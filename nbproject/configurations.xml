@@ -4,11 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>Network.h</itemPath>
-      <itemPath>Party.h</itemPath>
-      <itemPath>Project.h</itemPath>
-      <itemPath>Setup.h</itemPath>
-      <itemPath>System.h</itemPath>
+      <itemPath>C:/GitHub/modeling-revisited/Definitions.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -52,25 +48,20 @@
           </incDir>
         </ccTool>
       </compileType>
-      <item path="Network.cpp" ex="false" tool="1" flavor2="0">
+      <item path="C:/GitHub/modeling-revisited/Definitions.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="Network.h" ex="false" tool="3" flavor2="0">
+      <item path="Network.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Party.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Party.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Project.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Project.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Setup.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Setup.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="System.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="System.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -96,25 +87,20 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="Network.cpp" ex="false" tool="1" flavor2="0">
+      <item path="C:/GitHub/modeling-revisited/Definitions.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="Network.h" ex="false" tool="3" flavor2="0">
+      <item path="Network.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Party.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Party.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Project.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Project.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Setup.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Setup.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="System.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="System.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

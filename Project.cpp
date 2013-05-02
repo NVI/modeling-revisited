@@ -1,9 +1,5 @@
-#include "Project.h"
-#include "Setup.h"
+#include "Definitions.h"
 
-#include <vector>
-#include <string>
-#include <set>
 #include <fstream>
 #include <sstream>
 #include <iostream>

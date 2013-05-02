@@ -1,9 +1,4 @@
-#include "System.h"
-#include "Party.h"
-#include "Setup.h"
-
-#include <map>
-#include <vector>
+#include "Definitions.h"
 
 System::System(Setup setup, int size) : setup(setup), size(size) {
 }

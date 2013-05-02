@@ -1,18 +1,8 @@
-#include "Network.h"
-#include "System.h"
-#include "Party.h"
-#include "Setup.h"
+#include "Definitions.h"
 
-#include <vector>
-#include <set>
 #include <iostream>
 #include <algorithm>
 #include <numeric>
-
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/uniform_01.hpp>
-#include <boost/random/uniform_int.hpp>
-#include <boost/math/distributions.hpp>
 
 Network::Network(std::vector<int> party, std::vector<std::set<int> > friends) : party(party), friends(friends) {
 }

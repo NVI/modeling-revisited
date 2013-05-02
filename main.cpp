@@ -1,19 +1,7 @@
-#include "Party.h"
-#include "System.h"
-#include "Setup.h"
-#include "Network.h"
-#include "Project.h"
+#include "Definitions.h"
 
 #include <cstdlib>
 #include <iostream>
-#include <string>
-#include <vector>
-#include <set>
-
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/uniform_01.hpp>
-#include <boost/random/uniform_int.hpp>
-#include <boost/math/distributions.hpp>
 
 int main(int argc, char **argv) {
     // initialization
