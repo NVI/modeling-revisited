@@ -5,12 +5,13 @@
 #include <map>
 #include <vector>
 
-System::System() {
+System::System(Setup setup, int size) : setup(setup), size(size) {
 }
 
-void System::addParty(double lambda, std::vector<double> distances) {
+void System::addParty(double* array) {
+    std::vector<double> distances (array, array + size);
     Party party(distances);
-    party.normalize(lambda);
+    party.normalize(setup.getLambda());
     parties.push_back(party);
 }
 

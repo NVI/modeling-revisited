@@ -2,15 +2,18 @@
 #define	SYSTEM_H
 
 #include "Party.h"
+#include "Setup.h"
 
 #include <vector>
 
 class System {
 public:
-    System();
-    void addParty(double lambda, std::vector<double> distances);
+    System(Setup setup, int size);
+    void addParty(double* array);
     Party getParty(int index) const;
 private:
+    Setup setup;
+    const int size;
     std::vector<Party> parties;
 };
 

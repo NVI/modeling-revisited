@@ -14,7 +14,7 @@ public:
     Project(std::vector<std::string> filenames, Setup setup, System system, Bundle bundle);
     void inputPolitics();
     void inputNetwork();
-    void iterateBundle(boost::random::mt19937 prng, boost::uniform_01<> rfloat);
+    void iterateBundle(boost::random::mt19937& prng, boost::uniform_01<>& rfloat);
     void outputPolitics();
     void outputNetwork();
 private:

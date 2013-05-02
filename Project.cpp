@@ -40,7 +40,7 @@ void Project::inputNetwork() {
     data.close();
 }
 
-void Project::iterateBundle(boost::random::mt19937 prng, boost::uniform_01<> rfloat) {
+void Project::iterateBundle(boost::random::mt19937& prng, boost::uniform_01<>& rfloat) {
     Network network = bundle.back();
     network.cluster(setup, system, prng, rfloat);
     bundle.push_back(network);

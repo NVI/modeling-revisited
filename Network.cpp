@@ -33,7 +33,7 @@ std::set<int> Network::getFriends(int my_index) const {
     return friends[my_index];
 }
 
-void Network::cluster(Setup setup, System system, boost::random::mt19937 prng, boost::uniform_01<> rfloat) {
+void Network::cluster(Setup& setup, System& system, boost::random::mt19937& prng, boost::uniform_01<>& rfloat) {
     std::set<int> not_in_cluster;
     std::set<int> current_cluster;
     std::set<int> potential_expanders;
@@ -89,7 +89,7 @@ void Network::cluster(Setup setup, System system, boost::random::mt19937 prng, b
     std::cout << "Changes:" << number_of_changes << std::endl; // only for testing
 }
 
-void Network::plod(Setup setup, boost::random::mt19937 prng, boost::uniform_01<> rfloat, boost::uniform_int<> rnode, boost::math::pareto_distribution<double> pareto) {
+void Network::plod(Setup& setup, boost::random::mt19937& prng, boost::uniform_01<>& rfloat, boost::uniform_int<>& rnode, boost::math::pareto_distribution<double>& pareto) {
     // numbers of friendships for each node taken from Pareto distribution
     std::vector<int> friendships;
     for (int i = 0; i < setup.getPopulation(); ++i) {
