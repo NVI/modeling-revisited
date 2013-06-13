@@ -1,6 +1,12 @@
-*.csv
-*.exe
 *.exe.*
 .dep.inc
 build/*
 dist/*
+
+*.csv
+*.exe
+*.sdf
+*.opensdf
+*.ipch
+*.suo
+*.*.user
